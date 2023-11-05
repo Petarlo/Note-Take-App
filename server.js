@@ -42,11 +42,11 @@ app.post('/api/notes', (req, res) => {
     res.json(db);
 });
 
-app.delete('/api/notes/:id', (req, res) =>{
+app.delete('/api/notes/:id', (req, res) => {
     const updateDb = db.filter((note) =>
     note.id !== req.params.id);
-    fs.writeFileSync('./db/db.json', JSON.stringify(updateDb))
-    readFile.json(updateDb)
+    fs.writeFileSync('./db/db.json', JSON.stringify(updateDb));
+    res.json(updateDb);
 });
 
 //HTML ROUTES
