@@ -1,31 +1,32 @@
 const express = require('express');
 const fs = require('fs');
-//const db = require('./db/db.json');
+const db = require('./db/db.json');
 const app = express();
 const path = require('path');
+//const bodyParser = require("body-parser");;
 
-const port = 3001;
+const PORT = process.env.PORT || 3001;
 
 //gives notes a unique ID
 const { v4: uuidv4 } = require('uuid');
-uuidv4(); 
 
 
 //middleware
 app.use(express.json());
 app.use(express.urlencoded({ extended: true}));
 app.use(express.static('public'));
+//app.use(bodyParser.json());
 
 //HTML ROUTES
 //HTML route to link and return index file
-app.get('/', (req, res) => 
-    res.sendFile(path.join(__dirname, '/public/index.html'))
-);
+app.get('/', (req, res) => {
+    res.sendFile(path.join(__dirname, './public/index.html'));
+});
 
 //HTML route to link and return notes file
-app.get('/notes', (req, res) => 
-    res.sendFile(path.join(__dirname, '/public/notes.html'))
-);
+app.get('/notes', (req, res) => {
+    res.sendFile(path.join(__dirname, './public/notes.html'));
+});
 
 //Wildcard route
 app.get('*', (req, res) => {
@@ -40,57 +41,30 @@ app.get('/api/notes', (req, res) => {
         var dbNote = JSON.parse(data);
         res.json(dbNote);
   });
-})
+});
+
 //POST request to save new notes 
 app.post('/api/notes', (req, res) => {
-    if (req.body) {
-       const newNote = {
-         title,
-         text,
-         note_id: uuidv4(),
-     };
-  
-     fs.writeFile(newNote, './db/db.json');
-      res.json(`Task added successfully`);
-     } else {
-          res.error('Error in adding task');
-   }
-   });
-
-// notes.post('/notes', (req, res) => {
-//     console.log(req.body)
-//     const { title, text } = req.body;
-
-//     if (title && text) {
-//         const newNote = {
-//             title,
-//             text,
-//             note_id: randomUUID(),
-//         };
-//         const response = {
-//             status: 'success',
-//             body: newNote,
-//         };
-//         res.json(response);
-//     } else {
-//         res.json('Error on posting new note');
-//     }
-// })
-
-// app.post('/api/notes', (req, res) => {
  
-//     const newNote = req.body;
+    const newNote = req.body;
   
-//     newNote.id = uuidv4()
+    newNote.id = uuidv4();
 
-//     db.push(newNote)
+    db.push(newNote);
 
-//     fs.writeFileSync('./db/db.json', JSON(db))
+    fs.writeFileSync('./db/db.json', JSON.stringify(db));
 
-//     res.json(db)
-//})
+    res.json(db);
+});
+
+app.delete('/api/notes/:id', (req, res) =>{
+    const updateDb = db.filter((note) =>
+    note.id !== req.params.id);
+    fs.writeFileSync('./db/db.json', JSON.stringify(updateDb));
+    readFile.json(updateDb);
+});
 
 
-app.listen(port, () => {
-    console.log("listening on port 3001");
-})
+app.listen(PORT, () => {
+    console.log(`Listening on port ${PORT}`);
+});
