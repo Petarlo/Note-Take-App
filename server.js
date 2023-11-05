@@ -17,21 +17,6 @@ app.use(express.urlencoded({ extended: true}));
 app.use(express.static('public'));
 //app.use(bodyParser.json());
 
-//HTML ROUTES
-//HTML route to link and return index file
-app.get('/', (req, res) => {
-    res.sendFile(path.join(__dirname, './public/index.html'));
-});
-
-//HTML route to link and return notes file
-app.get('/notes', (req, res) => {
-    res.sendFile(path.join(__dirname, './public/notes.html'));
-});
-
-//Wildcard route
-app.get('*', (req, res) => {
-    res.sendFile(path.join(__dirname, './public/index.html'));
-});
 
 //API routes
 //GET route to retrieve notes
@@ -60,10 +45,25 @@ app.post('/api/notes', (req, res) => {
 app.delete('/api/notes/:id', (req, res) =>{
     const updateDb = db.filter((note) =>
     note.id !== req.params.id);
-    fs.writeFileSync('./db/db.json', JSON.stringify(updateDb));
-    readFile.json(updateDb);
+    fs.writeFileSync('./db/db.json', JSON.stringify(updateDb))
+    readFile.json(updateDb)
 });
 
+//HTML ROUTES
+//HTML route to link and return index file
+app.get('/', (req, res) => {
+    res.sendFile(path.join(__dirname, './public/index.html'));
+});
+
+//HTML route to link and return notes file
+app.get('/notes', (req, res) => {
+    res.sendFile(path.join(__dirname, './public/notes.html'));
+});
+
+//Wildcard route
+app.get('*', (req, res) => {
+    res.sendFile(path.join(__dirname, './public/index.html'));
+});
 
 app.listen(PORT, () => {
     console.log(`Listening on port ${PORT}`);
