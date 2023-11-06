@@ -22,7 +22,7 @@
   ## Usage
   Screenshots and a GIF demonstration of the application are below. 
    ![Screenshot of application](./public/assets/Images/Screenshot.png)
-   ![GIF demo](./images/ApplicationGIF.gif)
+   ![GIF demo](./public/assets/Images/VideoDemo.gif)
 
   ## Licenses
   This project is covered under the MIT license.
