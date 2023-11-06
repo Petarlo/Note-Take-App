@@ -21,7 +21,7 @@
 
   ## Usage
   Screenshots and a GIF demonstration of the application are below. 
-   ![Screenshot of application](./images/ApplicationScreenshot.png)
+   ![Screenshot of application](./public/assets/Images/Screenshot.png)
    ![GIF demo](./images/ApplicationGIF.gif)
 
   ## Licenses
