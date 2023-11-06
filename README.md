@@ -4,7 +4,7 @@
 
   ## Description
   The aim of the challenge was to create an Express.js back end that saves and retrieves note data from an existing JSON and link to the front end starter code. The result is a Note Taker application that saves, retrieves and deletes the users personal notes.
-  Link to deployed Heroku page:
+  Link to deployed Heroku page: (https://gentle-woodland-85317-f5aa760dfea3.herokuapp.com/)
 
   ## Table of Contents
   * [Description](#description)
